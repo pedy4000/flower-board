@@ -9,103 +9,111 @@
 <style>
 :root{--bg:#f6f2ec;--card:#fffdfa;--ink:#221d19;--mute:#8a7f76;--line:#e7dfd4;--acc:#7a2e2e;--soft:#efe7dd}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:64px}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,Tahoma,sans-serif;line-height:1.85}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Vazirmatn,Tahoma,sans-serif;line-height:1.8}
 a{color:inherit}
-.wrap{max-width:1320px;margin:0 auto;padding:0 24px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 .en{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--mute);font-weight:500}
-header.hero{padding:76px 0 40px;text-align:center}
-.hero h1{font-size:48px;font-weight:800;margin:4px 0 8px;letter-spacing:-.5px}
-.hero p{color:var(--mute);max-width:720px;margin:0 auto}
-.stats{display:flex;justify-content:center;gap:34px;margin-top:26px;flex-wrap:wrap}
-.stats b{display:block;font-size:28px}.stats span{font-size:13px;color:var(--mute)}
+header.hero{padding:64px 0 34px;text-align:center}
+.hero h1{font-size:44px;font-weight:800;margin:4px 0 8px}
+.hero p{color:var(--mute);max-width:680px;margin:0 auto;font-size:15px}
+.stats{display:flex;justify-content:center;gap:30px;margin-top:22px;flex-wrap:wrap}
+.stats b{display:block;font-size:26px}.stats span{font-size:13px;color:var(--mute)}
 nav.top{position:sticky;top:0;z-index:20;background:rgba(246,242,236,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-nav.top .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
-nav.top a{white-space:nowrap;text-decoration:none;padding:6px 15px;border-radius:999px;font-size:14px;color:var(--mute)}
+nav.top .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:10px;padding-bottom:10px;align-items:center}
+nav.top a{white-space:nowrap;text-decoration:none;padding:6px 14px;border-radius:999px;font-size:14px;color:var(--mute)}
 nav.top a:hover,nav.top a.on{background:var(--ink);color:#fff}
-section.part{padding:64px 0 10px}
-.part>h2{font-size:36px;margin:0;font-weight:800}
-.part>h2 .en{font-size:22px;margin-inline-start:10px}
-.lead{margin:6px 0 24px;color:var(--mute)}
-.group{margin:40px 0 8px}
-.ghead{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:12px}
-.ghead h3{margin:0;font-size:23px}.ghead .en{font-size:18px}.ghead .count{margin-inline-start:auto;font-size:13px;color:var(--mute)}
-.toc{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
-.toc a{font-size:12.5px;text-decoration:none;border:1px solid var(--line);background:var(--card);padding:3px 11px;border-radius:999px;color:#5e554e}
-.toc a:hover{border-color:var(--ink)}
-.item{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px 18px;margin-bottom:18px}
-.ihead{margin-bottom:14px}
-.ihead .num{font-family:'Cormorant Garamond',serif;color:var(--mute);font-size:15px}
-.ihead h4{margin:0;font-size:20px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
-.ihead h4 .en{font-size:17px}
-.ihead p{margin:4px 0 8px;font-size:14.5px;color:#4b433d}
-.meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-.tag{font-size:12px;padding:2px 10px;border-radius:999px;background:var(--soft);color:#5e554e;white-space:nowrap}
+nav.top .tools{margin-inline-start:auto;display:flex;gap:6px}
+nav.top button{white-space:nowrap;font:inherit;font-size:12.5px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;cursor:pointer;color:var(--mute)}
+section.part{padding:54px 0 6px}
+.part>h2{font-size:32px;margin:0;font-weight:800}
+.part>h2 .en{font-size:20px;margin-inline-start:10px}
+.lead{margin:4px 0 18px;color:var(--mute);font-size:14.5px}
+/* group = collapsible block */
+.group{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:12px;overflow:hidden}
+.ghead{display:flex;align-items:center;gap:10px;padding:14px 20px;cursor:pointer;user-select:none}
+.ghead h3{margin:0;font-size:19px}.ghead .en{font-size:16px}
+.ghead .count{margin-inline-start:auto;font-size:12.5px;color:var(--mute)}
+.chev{width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:var(--soft);font-size:12px;transition:transform .2s;flex:0 0 22px}
+.open>.ghead .chev,.open>.row .chev{transform:rotate(90deg)}
+.gbody{display:none;border-top:1px solid var(--line)}
+.group.open>.gbody{display:block}
+/* item row */
+.item{border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.row{display:grid;grid-template-columns:28px 210px 1fr auto;gap:14px;align-items:center;padding:12px 20px;cursor:pointer}
+.row:hover{background:#faf6f0}
+.row .num{font-family:'Cormorant Garamond',serif;color:var(--mute);font-size:15px}
+.row .nm b{display:block;font-size:15.5px}
+.row .nm .en{font-size:14px}
+.row .d{font-size:13.5px;color:#5a514a}
+.row .side{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.tag{font-size:11.5px;padding:1px 9px;border-radius:999px;background:var(--soft);color:#5e554e;white-space:nowrap}
 .tag.f-آزاد{background:#e6efe3;color:#3d5a3a}.tag.f-فشرده{background:#f3e4e4;color:#7a2e2e}.tag.f-خطی{background:#e6e9f2;color:#3b4766}
-.flc{font-size:12px;text-decoration:none;padding:2px 10px;border-radius:999px;border:1px solid #d9cbb9;background:#fff;color:#6b4f2f}
+.ibody{display:none;padding:4px 20px 18px 20px}
+.item.open>.ibody{display:block}
+.item.open>.row{background:#faf6f0}
+.fls{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:4px 0 12px;font-size:12px;color:var(--mute)}
+.flc{font-size:12px;text-decoration:none;padding:1px 10px;border-radius:999px;border:1px solid #d9cbb9;background:#fff;color:#6b4f2f}
 .flc:hover{background:#6b4f2f;color:#fff}
-.gal{columns:3 230px;column-gap:8px}
-.gal img{width:100%;height:auto;display:block;margin:0 0 8px;border-radius:10px;background:var(--soft);cursor:zoom-in;break-inside:avoid;}
-.gal.wide{columns:4 220px}
+/* uniform tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.tiles .t{position:relative;aspect-ratio:4/5;border-radius:10px;overflow:hidden;background:linear-gradient(110deg,#efe7dd 30%,#f7f1ea 50%,#efe7dd 70%);background-size:200% 100%;animation:sh 1.2s infinite linear;cursor:zoom-in}
+.tiles .t img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .3s}
+.tiles .t.ok{animation:none;background:var(--soft)}
+.tiles .t.ok img{opacity:1}
+@keyframes sh{to{background-position:-200% 0}}
 /* florists */
-.fl{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:20px}
-.fl h4{margin:0;font-size:22px;font-family:'Cormorant Garamond',serif;font-style:normal;font-weight:500;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
-.fl h4 small{font-family:Vazirmatn;font-size:13px;color:var(--mute)}
-.fl .site{font-size:13px;color:var(--acc);text-decoration:none;margin-inline-start:auto}
-.fl p{margin:6px 0;font-size:14.5px;color:#4b433d}
+.fl .row{grid-template-columns:28px 210px 1fr auto}
+.fl .why{font-size:13.5px;color:#4b433d;margin:0 0 6px}
+.site{font-size:12.5px;color:var(--acc);text-decoration:none;white-space:nowrap}
 /* concepts */
-.concept{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px;margin-bottom:26px}
+.concept{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:16px}
 .concept .badge{display:inline-block;font-size:12px;color:#fff;padding:2px 12px;border-radius:999px}
-.concept h3{font-size:30px;margin:8px 0 0;font-weight:800;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
-.concept h3 .en{font-size:21px}
-.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin:14px 0 18px}
-.concept p{font-size:15px;color:#4b433d;margin:0 0 10px}
-.why{background:var(--soft);border-radius:12px;padding:10px 14px;font-size:14px}
-.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
-.chips a{font-size:12px;text-decoration:none;border:1px solid var(--line);padding:2px 10px;border-radius:999px;background:#fff}
-table.line{width:100%;border-collapse:collapse;font-size:14px}
-table.line td{padding:8px 0;border-top:1px solid var(--line);vertical-align:top}
-table.line td:first-child{font-weight:600;width:130px;white-space:nowrap;padding-inline-end:12px}
-.dark{background:var(--ink);color:#f6f2ec;border-radius:22px;padding:28px 30px;margin:10px 0 26px}
-.dark h3{margin:0 0 12px;font-size:24px}
+.concept h3{font-size:26px;margin:8px 0 0;font-weight:800;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.concept h3 .en{font-size:19px}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:12px 0 14px}
+.concept p{font-size:14.5px;color:#4b433d;margin:0 0 10px}
+.whyb{background:var(--soft);border-radius:12px;padding:10px 14px;font-size:13.5px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0;align-items:center}
+.chips a{font-size:12px;text-decoration:none;border:1px solid var(--line);padding:1px 10px;border-radius:999px;background:#fff}
+.chips span{font-size:12px;color:var(--mute)}
+table.line{width:100%;border-collapse:collapse;font-size:13.5px}
+table.line td{padding:7px 0;border-top:1px solid var(--line);vertical-align:top}
+table.line td:first-child{font-weight:600;width:120px;white-space:nowrap;padding-inline-end:12px}
+.concept .tiles{grid-template-columns:repeat(6,1fr)}
+.dark{background:var(--ink);color:#f6f2ec;border-radius:18px;padding:24px 26px;margin:0 0 16px}
+.dark h3{margin:0 0 10px;font-size:21px}
 .dark table.line td{border-color:#4a413a}
-.dark li{margin:8px 0;line-height:1.9}
+.dark li{margin:6px 0}
+/* lightbox */
 .lb{position:fixed;inset:0;background:rgba(18,15,13,.94);display:none;align-items:center;justify-content:center;z-index:50}
 .lb.on{display:flex}
 .lb img{max-width:88vw;max-height:86vh;border-radius:10px;object-fit:contain}
 .lb button{position:absolute;background:none;border:0;color:#fff;font-size:44px;cursor:pointer;padding:18px;opacity:.85}
 .lb .x{top:6px;left:10px;font-size:28px}.lb .p{right:10px;top:50%;transform:translateY(-50%)}.lb .n{left:10px;top:50%;transform:translateY(-50%)}
 .lb .cap{position:absolute;bottom:16px;left:0;right:0;text-align:center;color:#ddd;font-size:14px}
-#loader{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity .6s}
-#loader.hide{opacity:0;pointer-events:none}
-#loader h1{margin:0;font-size:36px;font-weight:800}
-#loader .pct{font-size:56px;font-weight:300;font-family:'Cormorant Garamond',serif;min-width:160px;text-align:center}
-#loader .bar{width:min(420px,80vw);height:4px;background:var(--line);border-radius:4px;overflow:hidden}
-#loader .bar i{display:block;height:100%;width:0;background:var(--ink);transition:width .2s}
-#loader small{color:var(--mute);font-size:13px}
-#loader button{margin-top:6px;background:none;border:1px solid var(--line);border-radius:999px;padding:6px 18px;font:inherit;font-size:13px;color:var(--mute);cursor:pointer}
-body.loading{overflow:hidden}
-footer{padding:40px 0 70px;text-align:center;color:var(--mute);font-size:13px}
-@media(max-width:860px){.cgrid{grid-template-columns:1fr}.hero h1{font-size:32px}.gal{columns:2 140px}}
+footer{padding:40px 0 60px;text-align:center;color:var(--mute);font-size:12.5px}
+@media(max-width:860px){.row,.fl .row{grid-template-columns:24px 1fr auto}.row .d{display:none}.cgrid{grid-template-columns:1fr}.concept .tiles{grid-template-columns:repeat(3,1fr)}.hero h1{font-size:30px}.tiles{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
-<body class="loading">
-<div id="loader"><div class="en" style="font-size:20px">The Atlas of Luxury Floristry</div><h1>اطلس گل‌آرایی لوکس</h1><div class="pct" id="ldPct">۰٪</div><div class="bar"><i id="ldBar"></i></div><small id="ldTxt">در حال بارگذاری عکس‌ها…</small><button onclick="enter()">ورود بدون انتظار</button></div>
+<body>
 <header class="hero wrap">
- <div class="en" style="font-size:22px">The Atlas of Luxury Floristry</div>
+ <div class="en" style="font-size:20px">The Atlas of Luxury Floristry</div>
  <h1>اطلس گل‌آرایی لوکس</h1>
- <p>سبک‌ها، فرمت‌های ارائه، ارکیده، ایده‌های دیزاین و گل‌فروشی‌های مرجع دنیا؛ با عکس‌هایی که تک‌تک انتخاب شده‌اند. پیشنهادهای برند در انتهای صفحه است.</p>
+ <p>روی هر دسته‌بندی بزن تا باز شود، و روی هر مورد بزن تا عکس‌هایش را ببینی. پیشنهادهای برند در انتهای صفحه است.</p>
  <div class="stats" id="stats"></div>
 </header>
 <nav class="top"><div class="wrap">
- <a href="#styles">۱. سبک‌ها</a><a href="#formats">۲. فرمت‌های ارائه</a><a href="#orchids">۳. ارکیده</a><a href="#ideas">۴. ایده‌های دیزاین</a><a href="#florists">۵. گل‌فروشی‌های مرجع</a><a href="#concepts">۶. پیشنهادها</a>
+ <a href="#styles">۱. سبک‌ها</a><a href="#formats">۲. فرمت‌ها</a><a href="#orchids">۳. ارکیده</a><a href="#ideas">۴. ایده‌ها</a><a href="#florists">۵. گل‌فروشی‌ها</a><a href="#concepts">۶. پیشنهادها</a>
+ <span class="tools"><button onclick="openAllGroups(true)">باز کردن همه</button><button onclick="openAllGroups(false)">بستن همه</button></span>
 </div></nav>
 <main class="wrap">
- <section class="part" id="styles"><h2>۱. سبک‌ها<span class="en">Styles</span></h2><p class="lead">فرم و منطق چیدن گل. برچسب‌ها: فرم · لوکس ●●● · امکان اجرا با گل‌های بازار ایران ●●● · گل‌فروشی‌هایی که در این سبک کار می‌کنند.</p><div id="P-styles"></div></section>
+ <section class="part" id="styles"><h2>۱. سبک‌ها<span class="en">Styles</span></h2><p class="lead">فرم و منطق چیدن گل. برچسب‌ها: فرم · لوکس ●●● · امکان اجرا با گل‌های بازار ایران ●●●</p><div id="P-styles"></div></section>
  <section class="part" id="formats"><h2>۲. فرمت‌های ارائه<span class="en">Presentation</span></h2><p class="lead">گل در چه چیزی و چطور به دست مشتری می‌رسد.</p><div id="P-formats"></div></section>
  <section class="part" id="orchids"><h2>۳. ارکیده<span class="en">Orchids</span></h2><p class="lead">انواع ارکیده و مدل‌های ارائه‌ی فالانوپسیس شاخه‌ای.</p><div id="P-orchids"></div></section>
- <section class="part" id="ideas"><h2>۴. ایده‌های دیزاین<span class="en">Design Ideas</span></h2><p class="lead">پالت رنگ، بافت و گل‌های قهرمان؛ ابزار ساختن کلکسیون.</p><div id="P-ideas"></div></section>
- <section class="part" id="florists"><h2>۵. گل‌فروشی‌های مرجع<span class="en">Reference Florists</span></h2><p class="lead">گل‌فروشی‌های لوکس دنیا، چه چیزی می‌سازند، چرا لوکس‌اند و در کدام سبک و فرمت کار می‌کنند.</p><div id="P-florists"></div></section>
+ <section class="part" id="ideas"><h2>۴. ایده‌های دیزاین<span class="en">Design Ideas</span></h2><p class="lead">پالت رنگ، بافت و گل‌های قهرمان.</p><div id="P-ideas"></div></section>
+ <section class="part" id="florists"><h2>۵. گل‌فروشی‌های مرجع<span class="en">Reference Florists</span></h2><p class="lead">گل‌فروشی‌های لوکس دنیا، چرا لوکس‌اند و در کدام سبک و فرمت کار می‌کنند.</p><div id="P-florists"></div></section>
  <section class="part" id="concepts"><h2>۶. پیشنهادها<span class="en">Recommendations</span></h2><p class="lead">بر اساس چیزهایی که تا الان پسندیدی: لوکس، فرم آزاد، تک‌رنگ، باکس کلاهی و ارکیده‌ی سفید.</p><div id="P-concepts"></div></section>
 </main>
 <footer>عکس‌ها از منابع عمومی وب و فقط برای الهام‌گیری‌اند و متعلق به صاحبانشان هستند.</footer>
@@ -117,50 +125,54 @@ const stars=n=>'●'.repeat(n)+'○'.repeat(3-n);
 const NAME={};[D.styles,D.formats,D.orchids,D.ideas].forEach(G=>G.forEach(g=>g.items.forEach(i=>NAME[i.k]=i.fa)));
 const FL={};D.florists.forEach(f=>FL[f.k]=f);
 const SETS=[];
-function gal(list,cap,cls){const k=SETS.push({list,cap})-1;return `<div class="gal ${cls||''}">${list.map(([t,m],i)=>`<img decoding="async" referrerpolicy="no-referrer" src="${t}" data-m="${m}" data-k="${k}" data-i="${i}" alt="" onerror="fb(this)">`).join('')}</div>`}
-function fb(el){if(el.dataset.m&&!el.dataset.tried){el.dataset.tried=1;el.src=el.dataset.m}else el.remove()}
-const UP=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target;UP.unobserve(el);const m=el.dataset.m;if(!m||el.src===m)return;const pre=new Image();pre.referrerPolicy='no-referrer';pre.onload=()=>{if(pre.naturalWidth>300)el.src=m};pre.src=m}),{rootMargin:'300px 0px'});
+// tiles are built empty; images are created only when opened
+function tiles(list,cap){const k=SETS.push({list,cap})-1;return `<div class="tiles" data-k="${k}"></div>`}
+function fill(box){if(box.dataset.done)return;box.dataset.done=1;const S=SETS[+box.dataset.k];
+ box.innerHTML=S.list.map((_,i)=>`<div class="t" data-i="${i}"><img decoding="async" referrerpolicy="no-referrer" alt=""></div>`).join('');
+ box.querySelectorAll('.t').forEach(t=>{const i=+t.dataset.i,[th,m]=S.list[i],img=t.querySelector('img');
+  img.onload=()=>{t.classList.add('ok');if(img.src===th){const pre=new Image();pre.referrerPolicy='no-referrer';pre.onload=()=>{if(pre.naturalWidth>300)img.src=m};pre.src=m}};
+  img.onerror=()=>{if(img.src!==m){img.src=m}else t.remove()};
+  img.src=th;
+  t.onclick=()=>{cur=S;LI=i;show();lb.classList.add('on')}})}
 let cur=null,LI=0;const lb=document.getElementById('lb');
-document.addEventListener('click',e=>{const t=e.target;if(t.tagName==='IMG'&&t.dataset.k){cur=SETS[+t.dataset.k];LI=+t.dataset.i;show();lb.classList.add('on')}});
 function show(){const [t,m]=cur.list[LI];const im=document.getElementById('lbImg');im.onerror=()=>{im.onerror=null;im.src=t};im.src=m;document.getElementById('lbCap').textContent=cur.cap+'  ·  '+fa(LI+1)+' / '+fa(cur.list.length)}
 function lbGo(d){LI=(LI+d+cur.list.length)%cur.list.length;show()}
 function lbClose(){lb.classList.remove('on')}
 lb.addEventListener('click',e=>{if(e.target===lb)lbClose()});
 document.addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')lbClose();if(e.key==='ArrowLeft')lbGo(1);if(e.key==='ArrowRight')lbGo(-1)});
+function toggle(el,force){const o=force===undefined?!el.classList.contains('open'):force;el.classList.toggle('open',o);if(o)el.querySelectorAll(':scope>.ibody .tiles').forEach(fill)}
+document.addEventListener('click',e=>{if(e.target.closest('a'))return;const gh=e.target.closest('.ghead');if(gh){toggle(gh.parentElement);return}const r=e.target.closest('.row');if(r){toggle(r.parentElement)}});
+function openAllGroups(o){document.querySelectorAll('.group').forEach(g=>toggle(g,o));if(!o)document.querySelectorAll('.item.open').forEach(i=>toggle(i,false))}
 function renderPart(id,groups){let n=0;
  document.getElementById('P-'+id).innerHTML=groups.map(g=>`<div class="group" id="g-${g.id}">
-  <div class="ghead"><h3>${g.fa}</h3><span class="en">${g.en}</span><span class="count">${fa(g.items.length)} مورد</span></div>
-  <div class="toc">${g.items.map(it=>`<a href="#i-${it.k}">${it.fa}</a>`).join('')}</div>
-  ${g.items.map(it=>{n++;return `<article class="item" id="i-${it.k}"><div class="ihead"><span class="num">${fa(n)}</span>
-   <h4>${it.fa}<span class="en">${it.en}</span></h4><p>${it.d}</p>
-   <div class="meta">${it.form?`<span class="tag f-${it.form}">${it.form}</span><span class="tag">لوکس ${stars(it.lux)}</span><span class="tag">ایران ${stars(it.ir)}</span>`:''}
-   ${it.fl.length?`<span class="tag" style="background:none;padding-inline:2px">گل‌فروشی‌ها:</span>${it.fl.map(k=>`<a class="flc" href="#f-${k}">${FL[k].name}</a>`).join('')}`:''}</div></div>
-   ${gal(it.img,it.fa+' · '+it.en)}</article>`}).join('')}</div>`).join('');return n}
+  <div class="ghead"><span class="chev">‹</span><h3>${g.fa}</h3><span class="en">${g.en}</span><span class="count">${fa(g.items.length)} مورد</span></div>
+  <div class="gbody">${g.items.map(it=>{n++;return `<div class="item" id="i-${it.k}">
+   <div class="row"><span class="num">${fa(n)}</span><div class="nm"><b>${it.fa}</b><span class="en">${it.en}</span></div><div class="d">${it.d}</div>
+    <div class="side">${it.form?`<span class="tag f-${it.form}">${it.form}</span><span class="tag">لوکس ${stars(it.lux)}</span><span class="tag">ایران ${stars(it.ir)}</span>`:''}<span class="chev">‹</span></div></div>
+   <div class="ibody">${it.fl.length?`<div class="fls">گل‌فروشی‌هایی که در این سبک کار می‌کنند:${it.fl.map(k=>`<a class="flc" href="#f-${k}">${FL[k].name}</a>`).join('')}</div>`:''}${tiles(it.img,it.fa+' · '+it.en)}</div></div>`}).join('')}</div></div>`).join('');return n}
 const c1=renderPart('styles',D.styles),c2=renderPart('formats',D.formats),c3=renderPart('orchids',D.orchids),c4=renderPart('ideas',D.ideas);
-document.getElementById('P-florists').innerHTML=`<div class="toc">${D.florists.map(f=>`<a href="#f-${f.k}">${f.name}</a>`).join('')}</div>`+D.florists.map(f=>`<article class="fl" id="f-${f.k}">
- <h4>${f.name}<small>${f.city}</small><a class="site" href="${f.url}" target="_blank" rel="noopener">${f.official?'سایت رسمی ←':'جست‌وجو ←'}</a></h4>
- <p>${f.d}</p><p><b>چرا لوکس: </b>${f.why}</p>
- <div class="chips">${f.rel.map(k=>`<a href="#i-${k}">${NAME[k]||k}</a>`).join('')}</div>
- ${gal(f.img,f.name,'wide')}</article>`).join('');
+document.getElementById('P-florists').innerHTML=`<div class="group fl" id="g-florists"><div class="ghead"><span class="chev">‹</span><h3>همه‌ی گل‌فروشی‌ها</h3><span class="en">Florists</span><span class="count">${fa(D.florists.length)} گل‌فروشی</span></div><div class="gbody">`+D.florists.map((f,i)=>`<div class="item" id="f-${f.k}">
+ <div class="row"><span class="num">${fa(i+1)}</span><div class="nm"><b style="font-family:'Cormorant Garamond',serif;font-size:18px">${f.name}</b><span style="font-size:12.5px;color:var(--mute)">${f.city}</span></div><div class="d">${f.d}</div>
+  <div class="side"><a class="site" href="${f.url}" target="_blank" rel="noopener">${f.official?'سایت ←':'جست‌وجو ←'}</a><span class="chev">‹</span></div></div>
+ <div class="ibody"><p class="why"><b>چرا لوکس: </b>${f.why}</p><div class="fls">سبک و فرمت:${f.rel.map(k=>`<a class="flc" href="#i-${k}">${NAME[k]||k}</a>`).join('')}</div>${tiles(f.img,f.name)}</div></div>`).join('')+`</div></div>`;
 document.getElementById('P-concepts').innerHTML=D.concepts.map((c,i)=>`<article class="concept">
  <span class="badge" style="background:${c.color}">${c.tag}</span>
  <h3>${fa(i+1)}. ${c.name}<span class="en">${c.en}</span></h3>
- <div class="cgrid"><div><p>${c.idea}</p><div class="why"><b>چرا: </b>${c.why}</div>
-  <div class="chips"><span style="font-size:12px;color:var(--mute)">ترکیب:</span>${c.mix.map(k=>`<a href="#i-${k}">${NAME[k]||k}</a>`).join('')}</div>
-  <div class="chips"><span style="font-size:12px;color:var(--mute)">مرجع:</span>${c.refs.map(k=>`<a href="#f-${k}">${FL[k].name}</a>`).join('')}</div></div>
+ <div class="cgrid"><div><p>${c.idea}</p><div class="whyb"><b>چرا: </b>${c.why}</div>
+  <div class="chips"><span>ترکیب:</span>${c.mix.map(k=>`<a href="#i-${k}">${NAME[k]||k}</a>`).join('')}</div>
+  <div class="chips"><span>مرجع:</span>${c.refs.map(k=>`<a href="#f-${k}">${FL[k].name}</a>`).join('')}</div></div>
   <div><table class="line">${c.line.map(([a,b])=>`<tr><td>${a}</td><td>${b}</td></tr>`).join('')}</table></div></div>
- ${gal(c.board,c.name,'wide')}</article>`).join('')+`
+ ${tiles(c.board,c.name)}</article>`).join('')+`
  <div class="dark"><h3>معماری خط محصول</h3><table class="line">${D.arch.map(([a,b,c])=>`<tr><td>${a}</td><td>${b}</td><td style="color:#b9ada2">${c}</td></tr>`).join('')}</table></div>
  <div class="dark"><h3>اهرم‌های لوکس‌بودن برند</h3><ol>${D.levers.map(x=>`<li>${x}</li>`).join('')}</ol></div>`;
+// concept boards load when scrolled near
+const IO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){fill(e.target);IO.unobserve(e.target)}}),{rootMargin:'400px 0px'});
+document.querySelectorAll('#P-concepts .tiles').forEach(t=>IO.observe(t));
+// links to items/florists: open their group + item
+function reveal(hash){const el=hash&&document.querySelector(hash);if(!el)return;const g=el.closest('.group');if(g)toggle(g,true);if(el.classList.contains('item'))toggle(el,true);setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),50)}
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#i-"],a[href^="#f-"]');if(a){e.preventDefault();history.replaceState(null,'',a.getAttribute('href'));reveal(a.getAttribute('href'))}});
+if(/^#[if]-/.test(location.hash))reveal(location.hash);
 document.getElementById('stats').innerHTML=[[c1,'سبک'],[c2,'فرمت ارائه'],[c3,'ارکیده'],[c4,'ایده‌ی دیزاین'],[D.florists.length,'گل‌فروشی مرجع'],[D.concepts.length,'مفهوم پیشنهادی']].map(([a,b])=>`<div><b>${fa(a)}</b><span>${b}</span></div>`).join('');
-document.querySelectorAll('.gal img').forEach(i=>UP.observe(i));
-let LD_done=0;const LD_imgs=[...document.querySelectorAll('.gal img')],LD_total=LD_imgs.length;
-function enter(){const l=document.getElementById('loader');if(l.classList.contains('hide'))return;l.classList.add('hide');document.body.classList.remove('loading');setTimeout(()=>l.remove(),700);if(location.hash){const t=document.querySelector(location.hash);t&&t.scrollIntoView()}}
-function ldTick(){LD_done++;const p=Math.min(100,Math.round(LD_done/LD_total*100));document.getElementById('ldPct').textContent=fa(p)+'٪';document.getElementById('ldBar').style.width=p+'%';document.getElementById('ldTxt').textContent=fa(LD_done)+' از '+fa(LD_total)+' عکس';if(LD_done>=LD_total)setTimeout(enter,300)}
-LD_imgs.forEach(i=>{if(i.complete&&i.naturalWidth){ldTick();return}let c=false;const f=()=>{if(c)return;if(i.isConnected&&!i.complete)return;c=true;ldTick()};i.addEventListener('load',f);i.addEventListener('error',()=>setTimeout(()=>{if(!c&&(!i.isConnected||i.dataset.tried&&i.complete)){c=true;ldTick()}},0));
- const iv=setInterval(()=>{if(c){clearInterval(iv);return}if(!i.isConnected||(i.complete)){c=true;clearInterval(iv);ldTick()}},1500)});
-setTimeout(enter,90000);
-
 const links=[...document.querySelectorAll('nav.top a')];
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-40% 0px -55% 0px'});
 document.querySelectorAll('section.part').forEach(s=>obs.observe(s));
