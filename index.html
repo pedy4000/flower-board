@@ -45,7 +45,7 @@ section.part{padding:64px 0 10px}
 .flc{font-size:12px;text-decoration:none;padding:2px 10px;border-radius:999px;border:1px solid #d9cbb9;background:#fff;color:#6b4f2f}
 .flc:hover{background:#6b4f2f;color:#fff}
 .gal{columns:3 230px;column-gap:8px}
-.gal img{width:100%;height:auto;display:block;margin:0 0 8px;border-radius:10px;background:var(--soft);cursor:zoom-in;break-inside:avoid;min-height:80px}
+.gal img{width:100%;height:auto;display:block;margin:0 0 8px;border-radius:10px;background:var(--soft);cursor:zoom-in;break-inside:avoid;}
 .gal.wide{columns:4 220px}
 /* florists */
 .fl{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:20px}
@@ -76,11 +76,21 @@ table.line td:first-child{font-weight:600;width:130px;white-space:nowrap;padding
 .lb button{position:absolute;background:none;border:0;color:#fff;font-size:44px;cursor:pointer;padding:18px;opacity:.85}
 .lb .x{top:6px;left:10px;font-size:28px}.lb .p{right:10px;top:50%;transform:translateY(-50%)}.lb .n{left:10px;top:50%;transform:translateY(-50%)}
 .lb .cap{position:absolute;bottom:16px;left:0;right:0;text-align:center;color:#ddd;font-size:14px}
+#loader{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity .6s}
+#loader.hide{opacity:0;pointer-events:none}
+#loader h1{margin:0;font-size:36px;font-weight:800}
+#loader .pct{font-size:56px;font-weight:300;font-family:'Cormorant Garamond',serif;min-width:160px;text-align:center}
+#loader .bar{width:min(420px,80vw);height:4px;background:var(--line);border-radius:4px;overflow:hidden}
+#loader .bar i{display:block;height:100%;width:0;background:var(--ink);transition:width .2s}
+#loader small{color:var(--mute);font-size:13px}
+#loader button{margin-top:6px;background:none;border:1px solid var(--line);border-radius:999px;padding:6px 18px;font:inherit;font-size:13px;color:var(--mute);cursor:pointer}
+body.loading{overflow:hidden}
 footer{padding:40px 0 70px;text-align:center;color:var(--mute);font-size:13px}
 @media(max-width:860px){.cgrid{grid-template-columns:1fr}.hero h1{font-size:32px}.gal{columns:2 140px}}
 </style>
 </head>
-<body>
+<body class="loading">
+<div id="loader"><div class="en" style="font-size:20px">The Atlas of Luxury Floristry</div><h1>اطلس گل‌آرایی لوکس</h1><div class="pct" id="ldPct">۰٪</div><div class="bar"><i id="ldBar"></i></div><small id="ldTxt">در حال بارگذاری عکس‌ها…</small><button onclick="enter()">ورود بدون انتظار</button></div>
 <header class="hero wrap">
  <div class="en" style="font-size:22px">The Atlas of Luxury Floristry</div>
  <h1>اطلس گل‌آرایی لوکس</h1>
@@ -107,8 +117,9 @@ const stars=n=>'●'.repeat(n)+'○'.repeat(3-n);
 const NAME={};[D.styles,D.formats,D.orchids,D.ideas].forEach(G=>G.forEach(g=>g.items.forEach(i=>NAME[i.k]=i.fa)));
 const FL={};D.florists.forEach(f=>FL[f.k]=f);
 const SETS=[];
-function gal(list,cap,cls){const k=SETS.push({list,cap})-1;return `<div class="gal ${cls||''}">${list.map(([t,m],i)=>`<img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${m}" data-t="${t}" data-k="${k}" data-i="${i}" alt="" onerror="fb(this)">`).join('')}</div>`}
-function fb(el){if(el.dataset.t&&el.src!==el.dataset.t){el.src=el.dataset.t;SETS[+el.dataset.k].list[+el.dataset.i][1]=el.dataset.t}else el.remove()}
+function gal(list,cap,cls){const k=SETS.push({list,cap})-1;return `<div class="gal ${cls||''}">${list.map(([t,m],i)=>`<img decoding="async" referrerpolicy="no-referrer" src="${t}" data-m="${m}" data-k="${k}" data-i="${i}" alt="" onerror="fb(this)">`).join('')}</div>`}
+function fb(el){if(el.dataset.m&&!el.dataset.tried){el.dataset.tried=1;el.src=el.dataset.m}else el.remove()}
+const UP=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target;UP.unobserve(el);const m=el.dataset.m;if(!m||el.src===m)return;const pre=new Image();pre.referrerPolicy='no-referrer';pre.onload=()=>{if(pre.naturalWidth>300)el.src=m};pre.src=m}),{rootMargin:'300px 0px'});
 let cur=null,LI=0;const lb=document.getElementById('lb');
 document.addEventListener('click',e=>{const t=e.target;if(t.tagName==='IMG'&&t.dataset.k){cur=SETS[+t.dataset.k];LI=+t.dataset.i;show();lb.classList.add('on')}});
 function show(){const [t,m]=cur.list[LI];const im=document.getElementById('lbImg');im.onerror=()=>{im.onerror=null;im.src=t};im.src=m;document.getElementById('lbCap').textContent=cur.cap+'  ·  '+fa(LI+1)+' / '+fa(cur.list.length)}
@@ -142,6 +153,14 @@ document.getElementById('P-concepts').innerHTML=D.concepts.map((c,i)=>`<article 
  <div class="dark"><h3>معماری خط محصول</h3><table class="line">${D.arch.map(([a,b,c])=>`<tr><td>${a}</td><td>${b}</td><td style="color:#b9ada2">${c}</td></tr>`).join('')}</table></div>
  <div class="dark"><h3>اهرم‌های لوکس‌بودن برند</h3><ol>${D.levers.map(x=>`<li>${x}</li>`).join('')}</ol></div>`;
 document.getElementById('stats').innerHTML=[[c1,'سبک'],[c2,'فرمت ارائه'],[c3,'ارکیده'],[c4,'ایده‌ی دیزاین'],[D.florists.length,'گل‌فروشی مرجع'],[D.concepts.length,'مفهوم پیشنهادی']].map(([a,b])=>`<div><b>${fa(a)}</b><span>${b}</span></div>`).join('');
+document.querySelectorAll('.gal img').forEach(i=>UP.observe(i));
+let LD_done=0;const LD_imgs=[...document.querySelectorAll('.gal img')],LD_total=LD_imgs.length;
+function enter(){const l=document.getElementById('loader');if(l.classList.contains('hide'))return;l.classList.add('hide');document.body.classList.remove('loading');setTimeout(()=>l.remove(),700);if(location.hash){const t=document.querySelector(location.hash);t&&t.scrollIntoView()}}
+function ldTick(){LD_done++;const p=Math.min(100,Math.round(LD_done/LD_total*100));document.getElementById('ldPct').textContent=fa(p)+'٪';document.getElementById('ldBar').style.width=p+'%';document.getElementById('ldTxt').textContent=fa(LD_done)+' از '+fa(LD_total)+' عکس';if(LD_done>=LD_total)setTimeout(enter,300)}
+LD_imgs.forEach(i=>{if(i.complete&&i.naturalWidth){ldTick();return}let c=false;const f=()=>{if(c)return;if(i.isConnected&&!i.complete)return;c=true;ldTick()};i.addEventListener('load',f);i.addEventListener('error',()=>setTimeout(()=>{if(!c&&(!i.isConnected||i.dataset.tried&&i.complete)){c=true;ldTick()}},0));
+ const iv=setInterval(()=>{if(c){clearInterval(iv);return}if(!i.isConnected||(i.complete)){c=true;clearInterval(iv);ldTick()}},1500)});
+setTimeout(enter,90000);
+
 const links=[...document.querySelectorAll('nav.top a')];
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-40% 0px -55% 0px'});
 document.querySelectorAll('section.part').forEach(s=>obs.observe(s));
